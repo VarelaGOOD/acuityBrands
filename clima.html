@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACUITY BRANDS</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#60a5fa'
+          },
+          borderRadius: {
+            button: '8px'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #e0f2ff, #f8fafc);
+    }
+    .weather-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .hourly-card {
+      background: linear-gradient(to bottom, #ffffff, #f1f5f9);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    .hourly-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .hourly-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+    }
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .data-item {
+      background-color: #f8fafc;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <header class="mb-4 text-center">
+      <h1 class="text-3xl font-bold text-gray-800">Acuity Brands</h1>
+      <p class="text-sm text-gray-600" id="current-date-time"></p>
+    </header>
+
+    <div class="bg-blue-50 text-blue-800 p-4 rounded-lg shadow mb-8 text-center">
+      En Acuity nos preocupamos por tu bienestar. Te mostramos la temperatura externa para que tomes precauciones.
+    </div>
+
+    <section id="current-weather" class="weather-card rounded-xl p-6 mb-8"></section>
+
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Pronóstico por hora</h2>
+      <div class="hourly-scroll overflow-x-auto pb-4">
+        <div id="hourly-forecast" class="flex gap-4 min-w-max"></div>
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Próximos días</h2>
+      <div class="weather-card rounded-xl shadow p-4 divide-y divide-gray-200" id="daily-forecast"></div>
+    </section>
+
+    <footer class="text-center text-sm text-gray-500 mt-8">
+      <p>Última actualización: <span id="last-update">--:--</span></p>
+      <p class="mt-1">Los datos se actualizan automáticamente cada 5 minutos.</p>
+    </footer>
+  </div>
+
+  <script>
+    const API_KEY = 'aec1e70a6b37e6e0a7908332e9a80be2';
+    const lat = 25.677127;
+    const lon = -100.258502;
+    const lang = 'es';
+    const units = 'metric';
+
+    const weatherIcons = {
+      Clear: { icon: 'ri-sun-line', color: 'text-yellow-400' },
+      Clouds: { icon: 'ri-cloud-line', color: 'text-gray-400' },
+      Rain: { icon: 'ri-rainy-line', color: 'text-blue-500' },
+      Drizzle: { icon: 'ri-drizzle-line', color: 'text-blue-400' },
+      Thunderstorm: { icon: 'ri-thunderstorms-line', color: 'text-purple-500' },
+      Snow: { icon: 'ri-snowy-line', color: 'text-sky-300' },
+      Mist: { icon: 'ri-foggy-line', color: 'text-gray-300' },
+      Fog: { icon: 'ri-foggy-line', color: 'text-gray-300' },
+      Haze: { icon: 'ri-haze-line', color: 'text-gray-300' },
+    };
+
+    function getRemixIcon(main) {
+      return weatherIcons[main] || { icon: 'ri-question-line', color: 'text-gray-500' };
+    }
+
+    function formatTime(ts) {
+      return new Date(ts * 1000).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function formatDate(ts) {
+      return new Date(ts * 1000).toLocaleDateString('es-MX', { weekday: 'long' });
+    }
+
+    function updateDateTime() {
+      const now = new Date();
+      const formatted = now.toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' });
+      document.getElementById('current-date-time').textContent = formatted;
+      document.getElementById('last-update').textContent = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    async function fetchWeather() {
+      const currentUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`;
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`;
+
+      const [currentRes, forecastRes] = await Promise.all([
+        fetch(currentUrl),
+        fetch(forecastUrl)
+      ]);
+
+      const current = await currentRes.json();
+      const forecast = await forecastRes.json();
+      const main = current.weather[0].main;
+      const iconData = getRemixIcon(main);
+
+      const sunrise = formatTime(current.sys.sunrise);
+      const sunset = formatTime(current.sys.sunset);
+
+      document.getElementById('current-weather').innerHTML = `
+        <div class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+          <div class="flex-1 text-center md:text-left">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">${current.name}</h2>
+            <div class="text-7xl ${iconData.color} mb-2"><i class="${iconData.icon}"></i></div>
+            <div class="text-5xl font-bold text-gray-800">${current.main.temp.toFixed(1)}°C</div>
+            <p class="text-gray-500 capitalize">${current.weather[0].description}</p>
+          </div>
+          <div class="flex-1 data-grid">
+            <div class="data-item"><i class="ri-temp-hot-line text-orange-500"></i> <strong>Sensación:</strong> ${current.main.feels_like.toFixed(1)}°C</div>
+            <div class="data-item"><i class="ri-drop-line text-blue-500"></i> <strong>Humedad:</strong> ${current.main.humidity}%</div>
+            <div class="data-item"><i class="ri-speed-up-line text-purple-500"></i> <strong>Presión:</strong> ${current.main.pressure} hPa</div>
+            <div class="data-item"><i class="ri-windy-line text-teal-500"></i> <strong>Viento:</strong> ${current.wind.speed} km/h</div>
+            <div class="data-item"><i class="ri-sun-foggy-line text-amber-500"></i> <strong>Amanecer:</strong> ${sunrise}</div>
+            <div class="data-item"><i class="ri-moon-clear-line text-indigo-500"></i> <strong>Atardecer:</strong> ${sunset}</div>
+          </div>
+        </div>`;
+
+      const hourly = forecast.list.slice(0, 8);
+      document.getElementById('hourly-forecast').innerHTML = hourly.map(h => {
+        const icon = getRemixIcon(h.weather[0].main);
+        return `
+        <div class="hourly-card p-4 rounded-lg flex flex-col items-center min-w-[100px]">
+          <p class="text-sm text-gray-600">${formatTime(h.dt)}</p>
+          <div class="text-3xl ${icon.color}"><i class="${icon.icon}"></i></div>
+          <p class="text-lg font-bold text-gray-800">${h.main.temp.toFixed(0)}°C</p>
+        </div>`;
+      }).join('');
+
+      const dailyMap = {};
+      forecast.list.forEach(item => {
+        const date = new Date(item.dt * 1000).toLocaleDateString('es-MX');
+        if (!dailyMap[date]) dailyMap[date] = [];
+        dailyMap[date].push(item);
+      });
+
+      const dailyHTML = Object.entries(dailyMap).slice(1, 6).map(([date, items]) => {
+        const temps = items.map(i => i.main.temp);
+        const min = Math.min(...temps).toFixed(0);
+        const max = Math.max(...temps).toFixed(0);
+        const main = items[0].weather[0].main;
+        const desc = items[0].weather[0].description;
+        const icon = getRemixIcon(main);
+        const dayName = formatDate(items[0].dt);
+        return `
+          <div class="py-3 flex items-center justify-between">
+            <div class="flex items-center">
+              <span class="w-24 capitalize text-gray-600">${dayName}</span>
+              <div class="text-xl ${icon.color} mx-4"><i class="${icon.icon}"></i></div>
+              <span class="text-gray-600">${desc}</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-gray-800 font-semibold">${max}°C</span>
+              <span class="text-gray-400">${min}°C</span>
+            </div>
+          </div>`;
+      }).join('');
+
+      document.getElementById('daily-forecast').innerHTML = dailyHTML;
+    }
+
+    updateDateTime();
+    fetchWeather();
+    setInterval(() => {
+      updateDateTime();
+      fetchWeather();
+    }, 300000);
+  </script>
+</body>
+</html>
