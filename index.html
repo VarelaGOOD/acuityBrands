@@ -15,6 +15,15 @@
           },
           borderRadius: {
             button: '8px'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 }
+            }
+          },
+          animation: {
+            fadeIn: 'fadeIn 1s ease-in-out'
           }
         }
       }
@@ -63,6 +72,7 @@
 <body class="min-h-screen">
   <div class="max-w-7xl mx-auto px-4 py-8">
     <header class="mb-4 text-center">
+      <img src="https://www.acuitybrands.com.mx/-/media/abl/acuitybrands/images/home/acuity-brands-logo-green-306x44.png?h=70&w=220&la=en&hash=0EC1BD3847F7EF6548BDC6F637461B87" alt="Acuity Brands Logo" class="mx-auto h-10 mb-2">
       <h1 class="text-3xl font-bold text-gray-800">Acuity Brands</h1>
       <p class="text-sm text-gray-600" id="current-date-time"></p>
     </header>
@@ -71,10 +81,10 @@
       En Acuity nos preocupamos por tu bienestar. Te mostramos la temperatura externa para que tomes precauciones.
     </div>
 
-    <section id="current-weather" class="weather-card rounded-xl p-6 mb-8"></section>
+    <section id="current-weather" class="weather-card rounded-xl p-6 mb-8 animate-fadeIn"></section>
 
     <section class="mb-8">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Pronóstico por hora</h2>
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Te presentamos el pronóstico para las siguientes horas, prepárate</h2>
       <div class="hourly-scroll overflow-x-auto pb-4">
         <div id="hourly-forecast" class="flex gap-4 min-w-max"></div>
       </div>
@@ -124,7 +134,7 @@
 
     function updateDateTime() {
       const now = new Date();
-      const formatted = now.toLocaleString('es-MX', { dateStyle: 'full', timeStyle: 'short' });
+      const formatted = now.toLocaleDateString('es-MX', { dateStyle: 'full' });
       document.getElementById('current-date-time').textContent = formatted;
       document.getElementById('last-update').textContent = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
     }
@@ -209,10 +219,8 @@
 
     updateDateTime();
     fetchWeather();
-    setInterval(() => {
-      updateDateTime();
-      fetchWeather();
-    }, 300000);
+    setInterval(updateDateTime, 1000);
+    setInterval(fetchWeather, 300000);
   </script>
 </body>
 </html>
