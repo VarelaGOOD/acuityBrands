@@ -82,24 +82,34 @@
       En Acuity nos preocupamos por tu bienestar. Te mostramos la temperatura externa para que tomes precauciones.
     </div>
 
-    <section id="current-weather" class="weather-card rounded-xl p-6 mb-8 animate-fadeIn text-center">
-      <h2 id="location" class="text-2xl font-bold text-[#0E723A] mb-2"></h2>
-      <div id="weather-icon" class="text-7xl mb-2"></div>
-      <div id="temperature" class="text-6xl font-bold text-gray-800"></div>
-      <p id="description" class="text-gray-600 capitalize mb-4"></p>
-      <div id="weather-details" class="data-grid"></div>
+    <!-- Sección de clima actual con detalles, temperatura central y próximos días -->
+    <section id="current-weather" class="weather-card rounded-xl p-6 mb-8 animate-fadeIn">
+      <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start">
+        <!-- Detalles Izquierda -->
+        <div class="flex-1 mb-6 lg:mb-0">
+          <div id="weather-details" class="data-grid justify-start"></div>
+        </div>
+        <!-- Clima Central -->
+        <div class="flex-1 text-center mb-6 lg:mb-0">
+          <h2 id="location" class="text-2xl font-bold text-[#0E723A] mb-2"></h2>
+          <div id="weather-icon" class="text-7xl mb-2 mx-auto"></div>
+          <div id="temperature" class="text-6xl font-bold text-gray-800 mb-2"></div>
+          <p id="description" class="text-gray-600 capitalize"></p>
+        </div>
+        <!-- Próximos Días Derecha -->
+        <div class="flex-1 w-full lg:w-auto">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Próximos días</h3>
+          <div id="next-days" class="bg-white rounded-lg shadow p-4 divide-y divide-gray-200"></div>
+        </div>
+      </div>
     </section>
 
+    <!-- Pronóstico por horas -->
     <section class="mb-8">
       <h2 class="text-xl font-semibold text-gray-800 mb-4">Te presentamos el pronóstico para las siguientes horas, prepárate</h2>
       <div class="hourly-scroll overflow-x-auto pb-4">
         <div id="hourly-forecast" class="flex gap-4 min-w-max"></div>
       </div>
-    </section>
-
-    <section class="mb-4">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Próximos días</h2>
-      <div class="weather-card rounded-xl shadow p-4 divide-y divide-gray-200" id="daily-forecast"></div>
     </section>
 
     <footer class="text-center text-sm text-gray-500 mt-8">
@@ -163,6 +173,7 @@
       const sunrise = formatTime(current.sys.sunrise);
       const sunset = formatTime(current.sys.sunset);
 
+      // Llenar detalles de clima actual
       document.getElementById('location').textContent = current.name;
       document.getElementById('weather-icon').innerHTML = `<i class="${iconData.icon} ${iconData.color}"></i>`;
       document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
@@ -175,6 +186,7 @@
         <div class="data-item"><i class="ri-sun-foggy-line text-amber-500"></i> <strong>Amanecer:</strong> ${sunrise}</div>
         <div class="data-item"><i class="ri-moon-clear-line text-indigo-500"></i> <strong>Atardecer:</strong> ${sunset}</div>`;
 
+      // Mostrar pronóstico por horas
       const hourly = forecast.list.slice(0, 8);
       document.getElementById('hourly-forecast').innerHTML = hourly.map(h => {
         const icon = getRemixIcon(h.weather[0].main);
@@ -186,6 +198,7 @@
         </div>`;
       }).join('');
 
+      // Construir mapa de días
       const dailyMap = {};
       forecast.list.forEach(item => {
         const date = new Date(item.dt * 1000).toLocaleDateString('es-MX');
@@ -193,6 +206,7 @@
         dailyMap[date].push(item);
       });
 
+      // Mostrar próximos días
       const dailyHTML = Object.entries(dailyMap).slice(1, 6).map(([date, items]) => {
         const temps = items.map(i => i.main.temp);
         const min = Math.min(...temps).toFixed(0);
@@ -202,7 +216,7 @@
         const icon = getRemixIcon(main);
         const dayName = formatDate(items[0].dt);
         return `
-          <div class="py-3 flex items-center justify-between">
+          <div class="py-2 flex items-center justify-between">
             <div class="flex items-center">
               <span class="w-24 capitalize text-gray-600">${dayName}</span>
               <div class="text-xl ${icon.color} mx-4"><i class="${icon.icon}"></i></div>
@@ -214,8 +228,7 @@
             </div>
           </div>`;
       }).join('');
-
-      document.getElementById('daily-forecast').innerHTML = dailyHTML;
+      document.getElementById('next-days').innerHTML = dailyHTML;
     }
 
     updateDateTime();
