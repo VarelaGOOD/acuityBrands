@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ACUITY BRANDS</title>
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script>
@@ -27,7 +27,7 @@
           }
         }
       }
-    }
+    };
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -55,64 +55,64 @@
     }
     .data-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
     }
     .data-item {
       background-color: #f8fafc;
-      padding: 0.75rem;
-      border-radius: 0.5rem;
+      padding: 1rem;
+      border-radius: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
+      gap: 0.75rem;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body class="min-h-screen">
-  <div class="max-w-7xl mx-auto px-4 py-8">
-    <header class="mb-4 text-center">
-      <img src="https://www.acuitybrands.com.mx/-/media/abl/acuitybrands/images/home/acuity-brands-logo-green-306x44.png?h=70&w=220&la=en&hash=0EC1BD3847F7EF6548BDC6F637461B87" alt="Acuity Brands Logo" class="mx-auto h-10 mb-2">
-      <h1 class="text-3xl font-bold text-[#0E723A]">Acuity Brands</h1>
-      <p class="text-sm text-gray-600" id="current-date-time"></p>
+  <div class="max-w-[1400px] mx-auto px-8 py-10">
+    <header class="mb-6 text-center">
+      <img src="https://www.acuitybrands.com.mx/-/media/abl/acuitybrands/images/home/acuity-brands-logo-green-306x44.png?h=70&w=220&la=en&hash=0EC1BD3847F7EF6548BDC6F637461B87" alt="Acuity Brands Logo" class="mx-auto h-12 mb-3">
+      <h1 class="text-4xl lg:text-5xl font-bold text-[#0E723A]">Acuity Brands</h1>
+      <p class="text-base text-gray-600 mt-2" id="current-date-time"></p>
     </header>
 
-    <div class="bg-green-50 text-green-800 p-4 rounded-lg shadow mb-8 text-center">
+    <div class="bg-green-50 text-green-800 p-5 rounded-xl shadow mb-10 text-lg text-center">
       En Acuity nos preocupamos por tu bienestar. Te mostramos la temperatura externa para que tomes precauciones.
     </div>
 
-    <!-- Sección de clima actual con detalles, temperatura central y próximos días -->
-    <section id="current-weather" class="weather-card rounded-xl p-6 mb-8 animate-fadeIn">
-      <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start">
-        <!-- Detalles Izquierda -->
-        <div class="flex-1 mb-6 lg:mb-0">
-          <div id="weather-details" class="data-grid justify-start"></div>
+    <!-- Clima actual -->
+    <section id="current-weather" class="weather-card rounded-2xl p-8 mb-10 animate-fadeIn">
+      <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-8">
+        <!-- Izquierda -->
+        <div class="flex-1">
+          <div id="weather-details" class="data-grid"></div>
         </div>
-        <!-- Clima Central -->
-        <div class="flex-1 text-center mb-6 lg:mb-0">
-          <h2 id="location" class="text-2xl font-bold text-[#0E723A] mb-2"></h2>
-          <div id="weather-icon" class="text-7xl mb-2 mx-auto"></div>
-          <div id="temperature" class="text-6xl font-bold text-gray-800 mb-2"></div>
-          <p id="description" class="text-gray-600 capitalize"></p>
+        <!-- Centro -->
+        <div class="flex-1 text-center">
+          <h2 id="location" class="text-3xl font-bold text-[#0E723A] mb-4"></h2>
+          <div id="weather-icon" class="text-8xl mb-4 mx-auto"></div>
+          <div id="temperature" class="text-7xl lg:text-8xl font-bold text-gray-800 mb-2"></div>
+          <p id="description" class="text-lg text-gray-600 capitalize"></p>
         </div>
-        <!-- Próximos Días Derecha -->
+        <!-- Derecha -->
         <div class="flex-1 w-full lg:w-auto">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Próximos días</h3>
-          <div id="next-days" class="bg-white rounded-lg shadow p-4 divide-y divide-gray-200"></div>
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Próximos días</h3>
+          <div id="next-days" class="bg-white rounded-xl shadow p-5 divide-y divide-gray-200 text-lg"></div>
         </div>
       </div>
     </section>
 
-    <!-- Pronóstico por horas -->
-    <section class="mb-8">
-      <h2 class="text-xl font-semibold text-gray-800 mb-4">Te presentamos el pronóstico para las siguientes horas, prepárate</h2>
+    <!-- Horas siguientes -->
+    <section class="mb-10">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Te presentamos el pronóstico para las siguientes horas, prepárate</h2>
       <div class="hourly-scroll overflow-x-auto pb-4">
-        <div id="hourly-forecast" class="flex gap-4 min-w-max"></div>
+        <div id="hourly-forecast" class="flex gap-6 min-w-max"></div>
       </div>
     </section>
 
-    <footer class="text-center text-sm text-gray-500 mt-8">
+    <footer class="text-center text-sm text-gray-500 mt-10">
       <p>Última actualización: <span id="last-update">--:--</span></p>
       <p class="mt-1">Los datos se actualizan automáticamente cada 5 minutos.</p>
     </footer>
@@ -134,7 +134,7 @@
       Snow: { icon: 'ri-snowy-line', color: 'text-sky-300' },
       Mist: { icon: 'ri-foggy-line', color: 'text-gray-300' },
       Fog: { icon: 'ri-foggy-line', color: 'text-gray-300' },
-      Haze: { icon: 'ri-haze-line', color: 'text-gray-300' },
+      Haze: { icon: 'ri-haze-line', color: 'text-gray-300' }
     };
 
     function getRemixIcon(main) {
@@ -173,32 +173,29 @@
       const sunrise = formatTime(current.sys.sunrise);
       const sunset = formatTime(current.sys.sunset);
 
-      // Llenar detalles de clima actual
       document.getElementById('location').textContent = current.name;
       document.getElementById('weather-icon').innerHTML = `<i class="${iconData.icon} ${iconData.color}"></i>`;
       document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
       document.getElementById('description').textContent = current.weather[0].description;
       document.getElementById('weather-details').innerHTML = `
-        <div class="data-item"><i class="ri-temp-hot-line text-orange-500"></i> <strong>Sensación:</strong> ${current.main.feels_like.toFixed(1)}°C</div>
-        <div class="data-item"><i class="ri-drop-line text-blue-500"></i> <strong>Humedad:</strong> ${current.main.humidity}%</div>
-        <div class="data-item"><i class="ri-speed-up-line text-purple-500"></i> <strong>Presión:</strong> ${current.main.pressure} hPa</div>
-        <div class="data-item"><i class="ri-windy-line text-teal-500"></i> <strong>Viento:</strong> ${current.wind.speed} km/h</div>
-        <div class="data-item"><i class="ri-sun-foggy-line text-amber-500"></i> <strong>Amanecer:</strong> ${sunrise}</div>
-        <div class="data-item"><i class="ri-moon-clear-line text-indigo-500"></i> <strong>Atardecer:</strong> ${sunset}</div>`;
+        <div class="data-item"><i class="ri-temp-hot-line text-orange-500"></i><strong>Sensación:</strong> ${current.main.feels_like.toFixed(1)}°C</div>
+        <div class="data-item"><i class="ri-drop-line text-blue-500"></i><strong>Humedad:</strong> ${current.main.humidity}%</div>
+        <div class="data-item"><i class="ri-speed-up-line text-purple-500"></i><strong>Presión:</strong> ${current.main.pressure} hPa</div>
+        <div class="data-item"><i class="ri-windy-line text-teal-500"></i><strong>Viento:</strong> ${current.wind.speed} km/h</div>
+        <div class="data-item"><i class="ri-sun-foggy-line text-amber-500"></i><strong>Amanecer:</strong> ${sunrise}</div>
+        <div class="data-item"><i class="ri-moon-clear-line text-indigo-500"></i><strong>Atardecer:</strong> ${sunset}</div>`;
 
-      // Mostrar pronóstico por horas
       const hourly = forecast.list.slice(0, 8);
       document.getElementById('hourly-forecast').innerHTML = hourly.map(h => {
         const icon = getRemixIcon(h.weather[0].main);
         return `
-        <div class="hourly-card p-4 rounded-lg flex flex-col items-center min-w-[100px]">
-          <p class="text-sm text-gray-600">${formatTime(h.dt)}</p>
-          <div class="text-3xl ${icon.color}"><i class="${icon.icon}"></i></div>
-          <p class="text-lg font-bold text-gray-800">${h.main.temp.toFixed(0)}°C</p>
-        </div>`;
+          <div class="hourly-card p-5 rounded-xl flex flex-col items-center min-w-[110px]">
+            <p class="text-base text-gray-600">${formatTime(h.dt)}</p>
+            <div class="text-4xl ${icon.color}"><i class="${icon.icon}"></i></div>
+            <p class="text-xl font-bold text-gray-800">${h.main.temp.toFixed(0)}°C</p>
+          </div>`;
       }).join('');
 
-      // Construir mapa de días
       const dailyMap = {};
       forecast.list.forEach(item => {
         const date = new Date(item.dt * 1000).toLocaleDateString('es-MX');
@@ -206,7 +203,6 @@
         dailyMap[date].push(item);
       });
 
-      // Mostrar próximos días
       const dailyHTML = Object.entries(dailyMap).slice(1, 6).map(([date, items]) => {
         const temps = items.map(i => i.main.temp);
         const min = Math.min(...temps).toFixed(0);
@@ -216,14 +212,14 @@
         const icon = getRemixIcon(main);
         const dayName = formatDate(items[0].dt);
         return `
-          <div class="py-2 flex items-center justify-between">
-            <div class="flex items-center">
-              <span class="w-24 capitalize text-gray-600">${dayName}</span>
-              <div class="text-xl ${icon.color} mx-4"><i class="${icon.icon}"></i></div>
+          <div class="py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <span class="w-28 capitalize text-gray-600">${dayName}</span>
+              <div class="text-2xl ${icon.color}"><i class="${icon.icon}"></i></div>
               <span class="text-gray-600">${desc}</span>
             </div>
-            <div class="flex items-center gap-4">
-              <span class="text-gray-800 font-semibold">${max}°C</span>
+            <div class="flex items-center gap-4 font-semibold">
+              <span class="text-gray-800">${max}°C</span>
               <span class="text-gray-400">${min}°C</span>
             </div>
           </div>`;
