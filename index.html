@@ -54,20 +54,23 @@
       border-radius: 10px;
     }
     .data-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.25rem;
-    }
-    .data-item {
-      background-color: #f8fafc;
-      padding: 1rem;
-      border-radius: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1rem;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+  .data-item {
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
   </style>
 </head>
 <body class="min-h-screen">
@@ -179,12 +182,11 @@
       document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
       document.getElementById('description').textContent = current.weather[0].description;
       document.getElementById('weather-details').innerHTML = `
-        <div class="data-item"><i class="ri-temp-hot-line text-orange-500"></i><strong>Sensación:</strong> ${current.main.feels_like.toFixed(1)}°C</div>
-        <div class="data-item"><i class="ri-drop-line text-blue-500"></i><strong>Humedad:</strong> ${current.main.humidity}%</div>
-        <div class="data-item"><i class="ri-speed-up-line text-purple-500"></i><strong>Presión:</strong> ${current.main.pressure} hPa</div>
-        <div class="data-item"><i class="ri-windy-line text-teal-500"></i><strong>Viento:</strong> ${current.wind.speed} km/h</div>
-        <div class="data-item"><i class="ri-sun-foggy-line text-amber-500"></i><strong>Amanecer:</strong> ${sunrise}</div>
-        <div class="data-item"><i class="ri-moon-clear-line text-indigo-500"></i><strong>Atardecer:</strong> ${sunset}</div>`;
+  <div class="data-item"><i class="ri-temp-hot-line text-orange-500"></i><strong>Sensación:</strong> ${current.main.feels_like.toFixed(1)}°C</div>
+  <div class="data-item"><i class="ri-drop-line text-blue-500"></i><strong>Humedad:</strong> ${current.main.humidity}%</div>
+  <div class="data-item"><i class="ri-speed-up-line text-purple-500"></i><strong>Presión:</strong> ${current.main.pressure} hPa</div>
+  <div class="data-item"><i class="ri-windy-line text-teal-500"></i><strong>Viento:</strong> ${current.wind.speed} km/h</div>`;
+
 
       const hourly = forecast.list.slice(0, 8);
       document.getElementById('hourly-forecast').innerHTML = hourly.map(h => {
