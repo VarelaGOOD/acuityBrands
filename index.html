@@ -108,10 +108,12 @@
           <div id="temperature" class="text-7xl lg:text-8xl font-bold text-gray-800 mb-2"></div>
           
           <!-- Descripción (por ejemplo, “Algo De Nubes”) -->
-          <p id="description" class="text-lg text-gray-600 capitalize mb-4"></p>
+          <p id="description" class="text-lg text-gray-600 capitalize mb-8"></p>
           
-          <!-- Sensación ahora estará debajo de la descripción -->
-          <p id="feels-like" class="text-4xl text-gray-700"></p>
+          <!-- Sensación ahora estará debajo de la descripción, con icono -->
+          <p id="feels-like" class="text-4xl text-gray-700 flex justify-center items-center gap-2">
+            <!-- Inicialmente vacío, se rellenará con JavaScript -->
+          </p>
         </div>
 
         <!-- Derecha: próximos días -->
@@ -217,9 +219,10 @@
       document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
       document.getElementById('description').textContent = current.weather[0].description;
 
-      // 2) “Sensación” justo debajo de la descripción
+      // 2) “Sensación” justo debajo de la descripción, con icono
       const feelsLike = `${current.main.feels_like.toFixed(1)}°C`;
-      document.getElementById('feels-like').textContent = `Sensación: ${feelsLike}`;
+      document.getElementById('feels-like').innerHTML =
+        `<i class="ri-temp-hot-line text-orange-500 text-2xl"></i> Sensación: ${feelsLike}`;
 
       // 3) Humedad, Presión y Viento en la columna izquierda
       document.getElementById('weather-details').innerHTML = `
