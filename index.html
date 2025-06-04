@@ -108,12 +108,10 @@
           <div id="temperature" class="text-7xl lg:text-8xl font-bold text-gray-800 mb-2"></div>
           
           <!-- Descripción (por ejemplo, “Algo De Nubes”) -->
-          <p id="description" class="text-lg text-gray-600 capitalize mb-8"></p>
+          <p id="description" class="text-lg text-gray-600 capitalize mb-4"></p>
           
-          <!-- Sensación ahora estará debajo de la descripción, con icono -->
-          <p id="feels-like" class="text-4xl text-gray-700 flex justify-center items-center gap-2">
-            <!-- Inicialmente vacío, se rellenará con JavaScript -->
-          </p>
+          <!-- Sensación con icono debajo de la descripción -->
+          <p id="feels-like" class="text-2xl text-gray-700 flex justify-center items-center gap-2"></p>
         </div>
 
         <!-- Derecha: próximos días -->
@@ -129,8 +127,12 @@
       <h2 class="text-2xl font-semibold text-gray-800 mb-4">
         Te presentamos el pronóstico para las siguientes horas, prepárate
       </h2>
-      <div class="hourly-scroll overflow-x-auto pb-4">
+      <!-- Aquí envolvemos la fila de tarjetas y, a la derecha, la imagen valores.png -->
+      <div class="hourly-scroll overflow-x-auto pb-4 flex items-start gap-6">
+        <!-- Contenedor para las tarjetas con ID "hourly-forecast" -->
         <div id="hourly-forecast" class="flex gap-6 min-w-max"></div>
+        <!-- Imagen "valores.png" al mismo nivel, un poco más a la derecha -->
+        <img src="valores.png" alt="Valores" class="h-40 ml-10" />
       </div>
     </section>
 
@@ -163,7 +165,7 @@
       return weatherIcons[main] || { icon: 'ri-question-line', color: 'text-gray-500' };
     }
 
-    // Convertir timestamp a hora en zona México
+    // Convierte timestamp a hora en zona México
     function formatTime(ts) {
       return new Date(ts * 1000).toLocaleTimeString('es-MX', {
         hour: '2-digit',
@@ -172,7 +174,7 @@
       });
     }
 
-    // Convertir timestamp a nombre de día en zona México
+    // Convierte timestamp a día de la semana en zona México
     function formatDate(ts) {
       return new Date(ts * 1000).toLocaleDateString('es-MX', {
         weekday: 'long',
@@ -180,7 +182,7 @@
       });
     }
 
-    // Actualizar fecha completa y hora en zona México
+    // Actualiza fecha completa y hora en zona México
     function updateDateTime() {
       const now = new Date();
 
@@ -219,7 +221,7 @@
       document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
       document.getElementById('description').textContent = current.weather[0].description;
 
-      // 2) “Sensación” justo debajo de la descripción, con icono
+      // 2) “Sensación” debajo de la descripción, con icono
       const feelsLike = `${current.main.feels_like.toFixed(1)}°C`;
       document.getElementById('feels-like').innerHTML =
         `<i class="ri-temp-hot-line text-orange-500 text-2xl"></i> Sensación: ${feelsLike}`;
@@ -246,7 +248,7 @@
         return `
           <div class="hourly-card p-5 rounded-xl flex flex-col items-center min-w-[110px]">
             <p class="text-base text-gray-600">${formatTime(h.dt)}</p>
-            <div class="text-4xl ${icon.color}"><i class="${icon.icon}"></i></div>
+            <div class="text-4xl ${icon.color} mb-2"><i class="${icon.icon}"></i></div>
             <p class="text-xl font-bold text-gray-800">${h.main.temp.toFixed(0)}°C</p>
           </div>`;
       }).join('');
