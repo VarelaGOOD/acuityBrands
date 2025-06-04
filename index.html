@@ -96,19 +96,22 @@
     <!-- Clima actual -->
     <section id="current-weather" class="weather-card rounded-2xl p-8 mb-10 animate-fadeIn">
       <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-8">
-        <!-- Izquierda: ahora solo Humedad, Presión y Viento -->
+        <!-- Izquierda: Humedad, Presión y Viento -->
         <div class="flex-1">
           <div id="weather-details" class="data-grid"></div>
         </div>
 
-        <!-- Centro: ubicación, icono, temperatura, descripción y sensación debajo de la temperatura -->
+        <!-- Centro: ubicación, icono, temperatura, descripción y sensación debajo de la descripción -->
         <div class="flex-1 text-center">
           <h2 id="location" class="text-3xl font-bold text-[#0E723A] mb-4"></h2>
           <div id="weather-icon" class="text-8xl mb-4 mx-auto"></div>
           <div id="temperature" class="text-7xl lg:text-8xl font-bold text-gray-800 mb-2"></div>
-          <!-- Aquí va la "Sensación" justo bajo la temperatura -->
-          <p id="feels-like" class="text-2xl text-gray-700 mb-4"></p>
-          <p id="description" class="text-lg text-gray-600 capitalize"></p>
+          
+          <!-- Descripción (por ejemplo, “Algo De Nubes”) -->
+          <p id="description" class="text-lg text-gray-600 capitalize mb-4"></p>
+          
+          <!-- Sensación ahora estará debajo de la descripción -->
+          <p id="feels-like" class="text-2xl text-gray-700"></p>
         </div>
 
         <!-- Derecha: próximos días -->
@@ -158,7 +161,7 @@
       return weatherIcons[main] || { icon: 'ri-question-line', color: 'text-gray-500' };
     }
 
-    // Convierte timestamp a hora en zona México
+    // Convertir timestamp a hora en zona México
     function formatTime(ts) {
       return new Date(ts * 1000).toLocaleTimeString('es-MX', {
         hour: '2-digit',
@@ -167,7 +170,7 @@
       });
     }
 
-    // Convierte timestamp a día de la semana en zona México
+    // Convertir timestamp a nombre de día en zona México
     function formatDate(ts) {
       return new Date(ts * 1000).toLocaleDateString('es-MX', {
         weekday: 'long',
@@ -175,7 +178,7 @@
       });
     }
 
-    // Actualiza la fecha completa y hora en zona México
+    // Actualizar fecha completa y hora en zona México
     function updateDateTime() {
       const now = new Date();
 
@@ -214,7 +217,7 @@
       document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
       document.getElementById('description').textContent = current.weather[0].description;
 
-      // 2) “Sensación” justo debajo de la temperatura
+      // 2) “Sensación” justo debajo de la descripción
       const feelsLike = `${current.main.feels_like.toFixed(1)}°C`;
       document.getElementById('feels-like').textContent = `Sensación: ${feelsLike}`;
 
