@@ -80,7 +80,9 @@
         font-weight: 500;
       }
       .outline-text {
-        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+        text-shadow: -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
           1px 1px 0 #000;
       }
     </style>
@@ -90,42 +92,45 @@
       <!-- ============================= -->
       <!-- ENCABEZADO CON LOGO Y FECHA   -->
       <!-- ============================= -->
-      <!-- Cambio: mb-6 → mb-2 para reducir espacio -->
       <header class="mb-2 text-center">
         <img
           src="logo.png"
           alt="Acuity Brands Logo"
           class="mx-auto h-40 mb-1"
         />
-
         <p class="text-2xl text-gray-600 mt-1" id="current-date-time"></p>
       </header>
 
-      <!-- BANNER VERDE + IMAGEN valores.png -->
-      <!-- (se mantiene mb-1 como antes) -->
+      <!-- ================================================== -->
+      <!-- BANNER VERDE + IMAGEN valores.png (rectángulo más bajo) -->
+      <!-- ================================================== -->
       <div class="flex items-center justify-between mb-1">
-        <!-- RECTÁNGULO VERDE CON TEXTO -->
+        <!-- RECTÁNGULO VERDE (padding vertical reducido, texto más pequeño) -->
         <div
-          class="bg-primary text-white py-3 px-6 rounded-xl shadow text-center text-4xl"
+          class="bg-primary text-white py-1 px-4 rounded-xl shadow text-center text-3xl"
         >
           En
-          <strong class="text-5xl font-bold outline-text"> Acuity </strong>
+          <strong class="text-3xl font-bold outline-text"> Acuity </strong>
           nos preocupamos por tu
-          <strong class="text-5xl font-bold outline-text"> bienestar </strong
+          <strong class="text-3xl font-bold outline-text"> bienestar </strong
           >.<br />
-          Te mostramos la temperatura externa para que tomes precauciones.
+          <span class="text-3xl">
+            Te mostramos la temperatura externa para que tomes precauciones.
+          </span>
         </div>
+
         <!-- IMAGEN “valores.png” A LA DERECHA -->
-        <img src="valores.png" alt="Valores Acuity" class="h-56 w-auto" />
+        <img src="valores.png" alt="Valores Acuity" class="h-52 w-auto" />
       </div>
 
-      <!-- Clima actual -->
-      <!-- Cambio: mb-10 → mb-4 para reducir espacio debajo -->
+      <!-- ============================= -->
+      <!-- CLIMA ACTUAL / TARJETA BLANCA   -->
+      <!-- ============================= -->
+      <!-- Hemos mantenido mb-4 aquí para que el panel suba un poco -->
       <section
         id="current-weather"
         class="weather-card rounded-2xl p-8 mb-4 animate-fadeIn"
       >
-        <!-- Cambio: gap-8 → gap-4 para unir más cerca las columnas -->
         <div
           class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-4"
         >
@@ -172,15 +177,14 @@
         </div>
       </section>
 
-      <!-- Pronóstico por horas -->
-      <!-- Cambio: mb-10 → mb-4 para reducir espacio debajo -->
+      <!-- ============================= -->
+      <!-- PRONÓSTICO POR HORAS           -->
+      <!-- ============================= -->
       <section class="mb-4">
         <h2 class="text-2xl font-semibold text-gray-800 mb-4">
           Te presentamos el pronóstico para las siguientes horas, prepárate
         </h2>
-        <!-- Cambio: gap-6 → gap-4 para unir más cerca las tarjetas horarias -->
         <div class="hourly-scroll overflow-x-auto pb-4 flex items-start gap-4">
-          <!-- Contenedor para las tarjetas con ID "hourly-forecast" -->
           <div id="hourly-forecast" class="flex gap-4 min-w-max"></div>
         </div>
       </section>
