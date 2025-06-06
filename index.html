@@ -1,258 +1,299 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ACUITY BRANDS</title>
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#0E723A',
-            secondary: '#60a5fa'
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACUITY BRANDS</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0E723A",
+              secondary: "#60a5fa",
+            },
+            borderRadius: {
+              button: "8px",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: 0 },
+                "100%": { opacity: 1 },
+              },
+            },
+            animation: {
+              fadeIn: "fadeIn 1s ease-in-out",
+            },
           },
-          borderRadius: {
-            button: '8px'
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: 0 },
-              '100%': { opacity: 1 }
-            }
-          },
-          animation: {
-            fadeIn: 'fadeIn 1s ease-in-out'
-          }
-        }
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      /* Definición de la fuente Montserrat desde archivo local */
+      @font-face {
+        font-family: "Montserrat";
+        src: url("Montserrat-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
       }
-    };
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-  <style>
-    /* Definición de la fuente Montserrat desde archivo local */
-    @font-face {
-      font-family: 'Montserrat';
-      src: url('Montserrat-Regular.ttf') format('truetype');
-      font-weight: 400;
-      font-style: normal;
-    }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-        background-color: #E5E5E5;
-    }
-    .weather-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    .hourly-card {
-      background: linear-gradient(to bottom, #ffffff, #f1f5f9);
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-    .hourly-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .hourly-scroll::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 10px;
-    }
-    .data-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .data-item {
-      background-color: #f8fafc;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 1.25rem;
-      font-weight: 500;
-    }
-    .outline-text {
-  text-shadow:
-    -1px -1px 0 #000,  
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
-}
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #e5e5e5;
+      }
+      .weather-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+      .hourly-card {
+        background: linear-gradient(to bottom, #ffffff, #f1f5f9);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+      .hourly-scroll::-webkit-scrollbar {
+        height: 4px;
+      }
+      .hourly-scroll::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+      }
+      .data-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .data-item {
+        background-color: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .outline-text {
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+          1px 1px 0 #000;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <div class="max-w-[1400px] mx-auto px-8 py-10">
+      <!-- ============================= -->
+      <!-- ENCABEZADO CON LOGO Y FECHA   -->
+      <!-- ============================= -->
+      <!-- Cambio: mb-6 → mb-2 para reducir espacio -->
+      <header class="mb-2 text-center">
+        <img
+          src="logo.png"
+          alt="Acuity Brands Logo"
+          class="mx-auto h-40 mb-1"
+        />
 
-  </style>
-</head>
-<body class="min-h-screen">
-  <div class="max-w-[1400px] mx-auto px-8 py-10">
-    <header class="mb-6 text-center">
-      <img
-  src="logo.png"
-  alt="Acuity Brands Logo"
-  class="mx-auto h-40 mb-3"
-/>
+        <p class="text-2xl text-gray-600 mt-1" id="current-date-time"></p>
+      </header>
 
-      <p class="text-2xl text-gray-600 mt-2" id="current-date-time"></p>
-    </header>
+      <!-- BANNER VERDE + IMAGEN valores.png -->
+      <!-- (se mantiene mb-1 como antes) -->
+      <div class="flex items-center justify-between mb-1">
+        <!-- RECTÁNGULO VERDE CON TEXTO -->
+        <div
+          class="bg-primary text-white py-3 px-6 rounded-xl shadow text-center text-4xl"
+        >
+          En
+          <strong class="text-5xl font-bold outline-text"> Acuity </strong>
+          nos preocupamos por tu
+          <strong class="text-5xl font-bold outline-text"> bienestar </strong
+          >.<br />
+          Te mostramos la temperatura externa para que tomes precauciones.
+        </div>
+        <!-- IMAGEN “valores.png” A LA DERECHA -->
+        <img src="valores.png" alt="Valores Acuity" class="h-56 w-auto" />
+      </div>
 
- <!-- BANNER VERDE + IMAGEN valores.png -->
- <div class="flex items-center justify-between mb-6">
-  <!-- RECTÁNGULO VERDE CON TEXTO -->
-  <div class="bg-primary text-white py-3 px-6 rounded-xl shadow text-center text-4xl">
-    En 
-    <strong class="text-5xl font-bold outline-text">
-      Acuity
-    </strong> 
-    nos preocupamos por tu 
-    <strong class="text-5xl font-bold outline-text">
-      bienestar
-    </strong>.<br>
-    Te mostramos la temperatura externa para que tomes precauciones.
-  </div>
-      <!-- IMAGEN “valores.png” A LA DERECHA -->
-      <img src="valores.png" alt="Valores Acuity" class="h-56 w-auto" />
+      <!-- Clima actual -->
+      <!-- Cambio: mb-10 → mb-4 para reducir espacio debajo -->
+      <section
+        id="current-weather"
+        class="weather-card rounded-2xl p-8 mb-4 animate-fadeIn"
+      >
+        <!-- Cambio: gap-8 → gap-4 para unir más cerca las columnas -->
+        <div
+          class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-4"
+        >
+          <!-- Izquierda: Humedad, Presión y Viento -->
+          <div class="flex-1">
+            <div id="weather-details" class="data-grid"></div>
+          </div>
+
+          <!-- Centro: ubicación, icono, temperatura, descripción y sensación debajo de la descripción -->
+          <div class="flex-1 text-center">
+            <h2
+              id="location"
+              class="text-3xl font-bold text-[#0E723A] mb-4"
+            ></h2>
+            <div id="weather-icon" class="text-8xl mb-4 mx-auto"></div>
+            <div
+              id="temperature"
+              class="text-7xl lg:text-8xl font-bold text-gray-800 mb-2"
+            ></div>
+
+            <!-- Descripción (por ejemplo, “Algo De Nubes”) -->
+            <p
+              id="description"
+              class="text-lg text-gray-600 capitalize mb-8"
+            ></p>
+
+            <!-- Sensación con icono debajo de la descripción -->
+            <p
+              id="feels-like"
+              class="text-4xl text-gray-700 flex justify-center items-center gap-2"
+            ></p>
+          </div>
+
+          <!-- Derecha: próximos días -->
+          <div class="flex-1 w-full lg:w-auto">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+              Próximos días
+            </h3>
+            <div
+              id="next-days"
+              class="bg-white rounded-xl shadow p-5 divide-y divide-gray-200 text-lg"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pronóstico por horas -->
+      <!-- Cambio: mb-10 → mb-4 para reducir espacio debajo -->
+      <section class="mb-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+          Te presentamos el pronóstico para las siguientes horas, prepárate
+        </h2>
+        <!-- Cambio: gap-6 → gap-4 para unir más cerca las tarjetas horarias -->
+        <div class="hourly-scroll overflow-x-auto pb-4 flex items-start gap-4">
+          <!-- Contenedor para las tarjetas con ID "hourly-forecast" -->
+          <div id="hourly-forecast" class="flex gap-4 min-w-max"></div>
+        </div>
+      </section>
+
+      <footer class="text-center text-sm text-gray-500 mt-10">
+        <p>Última actualización: <span id="last-update">--:--</span></p>
+        <p class="mt-1">
+          Los datos se actualizan automáticamente cada 5 minutos.
+        </p>
+      </footer>
     </div>
 
+    <script>
+      const API_KEY = "aec1e70a6b37e6e0a7908332e9a80be2";
+      const lat = 25.677127;
+      const lon = -100.258502;
+      const lang = "es";
+      const units = "metric";
 
+      const weatherIcons = {
+        Clear: { icon: "ri-sun-line", color: "text-yellow-400" },
+        Clouds: { icon: "ri-cloudy-line", color: "text-gray-400" },
+        Rain: { icon: "ri-rainy-line", color: "text-blue-500" },
+        Drizzle: { icon: "ri-drizzle-line", color: "text-blue-400" },
+        Thunderstorm: {
+          icon: "ri-thunderstorms-line",
+          color: "text-purple-500",
+        },
+        Snow: { icon: "ri-snowy-line", color: "text-sky-300" },
+        Mist: { icon: "ri-foggy-line", color: "text-gray-300" },
+        Fog: { icon: "ri-foggy-line", color: "text-gray-300" },
+        Haze: { icon: "ri-haze-line", color: "text-gray-300" },
+      };
 
+      function getRemixIcon(main) {
+        return (
+          weatherIcons[main] || {
+            icon: "ri-question-line",
+            color: "text-gray-500",
+          }
+        );
+      }
 
-    <!-- Clima actual -->
-    <section id="current-weather" class="weather-card rounded-2xl p-8 mb-10 animate-fadeIn">
-      <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-8">
-        <!-- Izquierda: Humedad, Presión y Viento -->
-        <div class="flex-1">
-          <div id="weather-details" class="data-grid"></div>
-        </div>
+      // Convierte timestamp a hora en zona México
+      function formatTime(ts) {
+        return new Date(ts * 1000).toLocaleTimeString("es-MX", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "America/Mexico_City",
+        });
+      }
 
-        <!-- Centro: ubicación, icono, temperatura, descripción y sensación debajo de la descripción -->
-        <div class="flex-1 text-center">
-          <h2 id="location" class="text-3xl font-bold text-[#0E723A] mb-4"></h2>
-          <div id="weather-icon" class="text-8xl mb-4 mx-auto"></div>
-          <div id="temperature" class="text-7xl lg:text-8xl font-bold text-gray-800 mb-2"></div>
-          
-          <!-- Descripción (por ejemplo, “Algo De Nubes”) -->
-          <p id="description" class="text-lg text-gray-600 capitalize mb-8"></p>
-          
-          <!-- Sensación con icono debajo de la descripción -->
-          <p id="feels-like" class="text-4xl text-gray-700 flex justify-center items-center gap-2"></p>
-        </div>
+      // Convierte timestamp a día de la semana en zona México
+      function formatDate(ts) {
+        return new Date(ts * 1000).toLocaleDateString("es-MX", {
+          weekday: "long",
+          timeZone: "America/Mexico_City",
+        });
+      }
 
-        <!-- Derecha: próximos días -->
-        <div class="flex-1 w-full lg:w-auto">
-          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Próximos días</h3>
-          <div id="next-days" class="bg-white rounded-xl shadow p-5 divide-y divide-gray-200 text-lg"></div>
-        </div>
-      </div>
-    </section>
+      // Actualiza fecha completa y hora en zona México
+      function updateDateTime() {
+        const now = new Date();
 
-    <!-- Pronóstico por horas -->
-    <section class="mb-10">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-        Te presentamos el pronóstico para las siguientes horas, prepárate
-      </h2>
-      <!-- Aquí envolvemos la fila de tarjetas y, a la derecha, la imagen valores.png -->
-      <div class="hourly-scroll overflow-x-auto pb-4 flex items-start gap-6">
-        <!-- Contenedor para las tarjetas con ID "hourly-forecast" -->
-        <div id="hourly-forecast" class="flex gap-6 min-w-max"></div>
-        
-      </div>
-    </section>
+        const formattedDate = now.toLocaleDateString("es-MX", {
+          dateStyle: "full",
+          timeZone: "America/Mexico_City",
+        });
 
-    <footer class="text-center text-sm text-gray-500 mt-10">
-      <p>Última actualización: <span id="last-update">--:--</span></p>
-      <p class="mt-1">Los datos se actualizan automáticamente cada 5 minutos.</p>
-    </footer>
-  </div>
+        const formattedTime = now.toLocaleTimeString("es-MX", {
+          hour: "2-digit",
+          minute: "2-digit",
+          timeZone: "America/Mexico_City",
+        });
 
-  <script>
-    const API_KEY = 'aec1e70a6b37e6e0a7908332e9a80be2';
-    const lat = 25.677127;
-    const lon = -100.258502;
-    const lang = 'es';
-    const units = 'metric';
+        document.getElementById("current-date-time").textContent =
+          formattedDate;
+        document.getElementById("last-update").textContent = formattedTime;
+      }
 
-    const weatherIcons = {
-      Clear: { icon: 'ri-sun-line', color: 'text-yellow-400' },
-      Clouds: { icon: 'ri-cloudy-line', color: 'text-gray-400' },
-      Rain: { icon: 'ri-rainy-line', color: 'text-blue-500' },
-      Drizzle: { icon: 'ri-drizzle-line', color: 'text-blue-400' },
-      Thunderstorm: { icon: 'ri-thunderstorms-line', color: 'text-purple-500' },
-      Snow: { icon: 'ri-snowy-line', color: 'text-sky-300' },
-      Mist: { icon: 'ri-foggy-line', color: 'text-gray-300' },
-      Fog: { icon: 'ri-foggy-line', color: 'text-gray-300' },
-      Haze: { icon: 'ri-haze-line', color: 'text-gray-300' }
-    };
+      async function fetchWeather() {
+        const currentUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`;
 
-    function getRemixIcon(main) {
-      return weatherIcons[main] || { icon: 'ri-question-line', color: 'text-gray-500' };
-    }
+        const [currentRes, forecastRes] = await Promise.all([
+          fetch(currentUrl),
+          fetch(forecastUrl),
+        ]);
 
-    // Convierte timestamp a hora en zona México
-    function formatTime(ts) {
-      return new Date(ts * 1000).toLocaleTimeString('es-MX', {
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'America/Mexico_City'
-      });
-    }
+        const current = await currentRes.json();
+        const forecast = await forecastRes.json();
+        const main = current.weather[0].main;
+        const iconData = getRemixIcon(main);
 
-    // Convierte timestamp a día de la semana en zona México
-    function formatDate(ts) {
-      return new Date(ts * 1000).toLocaleDateString('es-MX', {
-        weekday: 'long',
-        timeZone: 'America/Mexico_City'
-      });
-    }
+        // 1) Ubicación, ícono, temperatura y descripción
+        document.getElementById("location").textContent = current.name;
+        document.getElementById(
+          "weather-icon"
+        ).innerHTML = `<i class="${iconData.icon} ${iconData.color}"></i>`;
+        document.getElementById(
+          "temperature"
+        ).textContent = `${current.main.temp.toFixed(1)}°C`;
+        document.getElementById("description").textContent =
+          current.weather[0].description;
 
-    // Actualiza fecha completa y hora en zona México
-    function updateDateTime() {
-      const now = new Date();
+        // 2) “Sensación” debajo de la descripción, con icono
+        const feelsLike = `${current.main.feels_like.toFixed(1)}°C`;
+        document.getElementById(
+          "feels-like"
+        ).innerHTML = `<i class="ri-temp-hot-line text-orange-500 text-2xl"></i> Sensación: ${feelsLike}`;
 
-      const formattedDate = now.toLocaleDateString('es-MX', {
-        dateStyle: 'full',
-        timeZone: 'America/Mexico_City'
-      });
-
-      const formattedTime = now.toLocaleTimeString('es-MX', {
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'America/Mexico_City'
-      });
-
-      document.getElementById('current-date-time').textContent = formattedDate;
-      document.getElementById('last-update').textContent = formattedTime;
-    }
-
-    async function fetchWeather() {
-      const currentUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`;
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`;
-
-      const [currentRes, forecastRes] = await Promise.all([
-        fetch(currentUrl),
-        fetch(forecastUrl)
-      ]);
-
-      const current = await currentRes.json();
-      const forecast = await forecastRes.json();
-      const main = current.weather[0].main;
-      const iconData = getRemixIcon(main);
-
-      // 1) Ubicación, ícono, temperatura y descripción
-      document.getElementById('location').textContent = current.name;
-      document.getElementById('weather-icon').innerHTML = `<i class="${iconData.icon} ${iconData.color}"></i>`;
-      document.getElementById('temperature').textContent = `${current.main.temp.toFixed(1)}°C`;
-      document.getElementById('description').textContent = current.weather[0].description;
-
-      // 2) “Sensación” debajo de la descripción, con icono
-      const feelsLike = `${current.main.feels_like.toFixed(1)}°C`;
-      document.getElementById('feels-like').innerHTML =
-        `<i class="ri-temp-hot-line text-orange-500 text-2xl"></i> Sensación: ${feelsLike}`;
-
-      // 3) Humedad, Presión y Viento en la columna izquierda
-      document.getElementById('weather-details').innerHTML = `
+        // 3) Humedad, Presión y Viento en la columna izquierda
+        document.getElementById("weather-details").innerHTML = `
         <div class="data-item">
           <i class="ri-drop-line text-blue-500"></i>
           <strong>Humedad:</strong> ${current.main.humidity}% 
@@ -266,36 +307,45 @@
           <strong>Viento:</strong> ${current.wind.speed} km/h
         </div>`;
 
-      // Pronóstico por horas (primeras 8 entradas)
-      const hourly = forecast.list.slice(0, 8);
-      document.getElementById('hourly-forecast').innerHTML = hourly.map(h => {
-        const icon = getRemixIcon(h.weather[0].main);
-        return `
+        // Pronóstico por horas (primeras 8 entradas)
+        const hourly = forecast.list.slice(0, 8);
+        document.getElementById("hourly-forecast").innerHTML = hourly
+          .map((h) => {
+            const icon = getRemixIcon(h.weather[0].main);
+            return `
           <div class="hourly-card p-5 rounded-xl flex flex-col items-center min-w-[110px]">
             <p class="text-base text-gray-600">${formatTime(h.dt)}</p>
-            <div class="text-4xl ${icon.color} mb-2"><i class="${icon.icon}"></i></div>
-            <p class="text-xl font-bold text-gray-800">${h.main.temp.toFixed(0)}°C</p>
+            <div class="text-4xl ${icon.color} mb-2"><i class="${
+              icon.icon
+            }"></i></div>
+            <p class="text-xl font-bold text-gray-800">${h.main.temp.toFixed(
+              0
+            )}°C</p>
           </div>`;
-      }).join('');
+          })
+          .join("");
 
-      // Pronóstico diario (siguiente 5 días)
-      const dailyMap = {};
-      forecast.list.forEach(item => {
-        const dateKey = new Date(item.dt * 1000)
-          .toLocaleDateString('es-MX', { timeZone: 'America/Mexico_City' });
-        if (!dailyMap[dateKey]) dailyMap[dateKey] = [];
-        dailyMap[dateKey].push(item);
-      });
+        // Pronóstico diario (siguiente 5 días)
+        const dailyMap = {};
+        forecast.list.forEach((item) => {
+          const dateKey = new Date(item.dt * 1000).toLocaleDateString("es-MX", {
+            timeZone: "America/Mexico_City",
+          });
+          if (!dailyMap[dateKey]) dailyMap[dateKey] = [];
+          dailyMap[dateKey].push(item);
+        });
 
-      const dailyHTML = Object.entries(dailyMap).slice(1, 6).map(([dateKey, items]) => {
-        const temps = items.map(i => i.main.temp);
-        const min = Math.min(...temps).toFixed(0);
-        const max = Math.max(...temps).toFixed(0);
-        const main2 = items[0].weather[0].main;
-        const desc2 = items[0].weather[0].description;
-        const icon2 = getRemixIcon(main2);
-        const dayName = formatDate(items[0].dt);
-        return `
+        const dailyHTML = Object.entries(dailyMap)
+          .slice(1, 6)
+          .map(([dateKey, items]) => {
+            const temps = items.map((i) => i.main.temp);
+            const min = Math.min(...temps).toFixed(0);
+            const max = Math.max(...temps).toFixed(0);
+            const main2 = items[0].weather[0].main;
+            const desc2 = items[0].weather[0].description;
+            const icon2 = getRemixIcon(main2);
+            const dayName = formatDate(items[0].dt);
+            return `
           <div class="py-3 flex items-center justify-between">
             <div class="flex items-center gap-4">
               <span class="w-28 capitalize text-gray-600">${dayName}</span>
@@ -307,15 +357,16 @@
               <span class="text-gray-400">${min}°C</span>
             </div>
           </div>`;
-      }).join('');
-      document.getElementById('next-days').innerHTML = dailyHTML;
-    }
+          })
+          .join("");
+        document.getElementById("next-days").innerHTML = dailyHTML;
+      }
 
-    // Inicialización
-    updateDateTime();
-    fetchWeather();
-    setInterval(updateDateTime, 1000);
-    setInterval(fetchWeather, 300000);
-  </script>
-</body>
+      // Inicialización
+      updateDateTime();
+      fetchWeather();
+      setInterval(updateDateTime, 1000);
+      setInterval(fetchWeather, 300000);
+    </script>
+  </body>
 </html>
